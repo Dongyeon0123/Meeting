@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #4CAF50;
+        }
+        .container {
+            width: 50%;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="text"] {
+            display: inline-block;
+            width: 80%;
+        }
+        .phone-number {
+            width: 40%;
+            display: inline-block;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .interests-checkboxes {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .interests-checkboxes label {
+            margin-right: 15px;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        .select-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+    <script>
+        function validateInterests() {
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            if (checkboxes.length > 6) {
+                alert("관심사는 최대 6개까지 선택할 수 있습니다.");
+                return false; // 폼 제출을 막음
+            }
+            return true; // 폼 제출을 허용
+        }
+    </script>
+</head>
+<body>
+    <h1>회원가입</h1>
+    <div class="container">
+        <form th:action="@{/register/signup}" th:object="${user}" method="post" onsubmit="return validateInterests()">
+            <label for="nickname">닉네임:</label>
+            <input type="text" th:field="*{nickname}" id="nickname" required/><br/>
+
+            <label for="phone_number">전화번호:</label>
+            <div class="select-wrapper">
+                <input type="text" th:field="*{phone_number}" id="phone_number" required class="phone-number" placeholder="010-1234-5678" pattern="\d{3}-\d{4}-\d{4}"/><br/>
+            </div>
+			
+			<label for="height">키 (cm):</label>
+			<input type="range" th:field="*{height}" id="height" name="height" min="140" max="200" step="1" value="170" oninput="this.nextElementSibling.value = this.value">
+			<output>170</output> <!-- 기본값 170으로 설정 -->
+
+            <label for="department">학과:</label>
+            <select th:field="*{department}" id="department" required>
+                <option value="">학과 선택</option>
+                <option value="Computer Science">컴퓨터공학</option>
+                <option value="Electrical Engineering">전기공학</option>
+                <option value="Mechanical Engineering">기계공학</option>
+                <option value="Civil Engineering">토목공학</option>
+                <option value="Business Administration">경영학</option>
+                <option value="Biology">생물학</option>
+                <option value="Psychology">심리학</option>
+                <option value="Chemistry">화학</option>
+                <!-- 추가적으로 더 많은 학과 항목을 삽입 가능 -->
+            </select><br/>
+
+            <label for="student_id">학번:</label>
+            <select th:field="*{student_id}" id="student_id" required>
+                <option value="">학번 선택</option>
+                <option th:each="i : ${#numbers.sequence(10, 25)}" th:value="${'20' + i}" th:text="'20' + ${i}"></option>
+            </select><br/>
+
+            <label for="mbti">MBTI:</label>
+            <select th:field="*{mbti}" id="mbti" required>
+                <option value="INTJ">INTJ</option>
+                <option value="INTP">INTP</option>
+                <option value="ENTJ">ENTJ</option>
+                <option value="ENTP">ENTP</option>
+                <option value="INFJ">INFJ</option>
+                <option value="INFP">INFP</option>
+                <option value="ENFJ">ENFJ</option>
+                <option value="ENFP">ENFP</option>
+                <option value="ISTJ">ISTJ</option>
+                <option value="ISFJ">ISFJ</option>
+                <option value="ESTJ">ESTJ</option>
+                <option value="ESFJ">ESFJ</option>
+                <option value="ISFP">ISFP</option>
+                <option value="ESFP">ESFP</option>
+                <option value="ESTP">ESTP</option>
+            </select><br/>
+
+            <label for="interests">관심사 (최대 6개 선택):</label>
+            <div class="interests-checkboxes">
+                <label>
+                    <input type="checkbox" th:field="*{interests}" value="Sports" /> 스포츠
+                </label>
+                <label>
+                    <input type="checkbox" th:field="*{interests}" value="Music" /> 음악
+                </label>
+                <label>
+                    <input type="checkbox" th:field="*{interests}" value="Travel" /> 여행
+                </label>
+                <label>
+                    <input type="checkbox" th:field="*{interests}" value="Art" /> 예술
+                </label>
+                <label>
+                    <input type="checkbox" th:field="*{interests}" value="Technology" /> 기술
+                </label>
+                <label>
+                    <input type="checkbox" th:field="*{interests}" value="Cooking" /> 요리
+                </label>
+                <label>
+                    <input type="checkbox" th:field="*{interests}" value="Reading" /> 독서
+                </label>
+                <label>
+                    <input type="checkbox" th:field="*{interests}" value="Fitness" /> 피트니스
+                </label>
+                <label>
+                    <input type="checkbox" th:field="*{interests}" value="Movies" /> 영화
+                </label>
+                <label>
+                    <input type="checkbox" th:field="*{interests}" value="Gaming" /> 게임
+                </label>
+                <label>
+                    <input type="checkbox" th:field="*{interests}" value="Photography" /> 사진
+                </label>
+                <label>
+                    <input type="checkbox" th:field="*{interests}" value="Environment" /> 환경
+                </label>
+                <label>
+                    <input type="checkbox" th:field="*{interests}" value="Languages" /> 언어
+                </label>
+            </div>
+
+            <button type="submit" class="submit-btn">회원가입</button>
+        </form>
+    </div>
+</body>
+</html>
