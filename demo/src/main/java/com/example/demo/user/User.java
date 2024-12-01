@@ -1,11 +1,12 @@
 package com.example.demo.user;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class User implements UserDetails {
     private String id;
 
     private String nickname;
-    private String phone_number;
+    private String phoneNumber;
     private String department;
     private String student_id;
     private int height;
@@ -29,10 +30,10 @@ public class User implements UserDetails {
     public User() {}
 
     // 생성자
-    public User(String nickname, String phone_number, String department, String student_id, int height,
+    public User(String nickname, String phoneNumber, String department, String student_id, int height,
                 String mbti, List<String> interests, String created_at, String updated_at) {
         this.nickname = nickname;
-        this.phone_number = phone_number;
+        this.phoneNumber = phoneNumber;
         this.department = department;
         this.student_id = student_id;
         this.height = height;
@@ -46,7 +47,6 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // 예시로 ROLE_USER 권한을 부여
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
@@ -57,7 +57,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.nickname; // nickname을 username으로 반환
+        return this.nickname;
     }
 
     @Override
@@ -98,12 +98,12 @@ public class User implements UserDetails {
         this.nickname = nickname;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getDepartment() {
@@ -121,13 +121,13 @@ public class User implements UserDetails {
     public void setStudent_id(String student_id) {
         this.student_id = student_id;
     }
-    
+
     public int getHeight() {
-    	return height;
+        return height;
     }
-    
+
     public void setHeight(int height) {
-    	this.height = height;
+        this.height = height;
     }
 
     public String getMbti() {
@@ -162,13 +162,12 @@ public class User implements UserDetails {
         this.updated_at = updated_at;
     }
 
-    // toString 메서드
     @Override
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +
                 ", nickname='" + nickname + '\'' +
-                ", phone_number='" + phone_number + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", department='" + department + '\'' +
                 ", student_id='" + student_id + '\'' +
                 ", mbti='" + mbti + '\'' +

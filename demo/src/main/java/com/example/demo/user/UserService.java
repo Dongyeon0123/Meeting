@@ -14,6 +14,19 @@ public class UserService {
         return userRepository.findByNickname(nickname);  // nickname을 기준으로 유저를 찾음
     }
 
+    public User findUserByNicknameAndPhoneNumberEndingWith(String nickname, String phoneNumber) {
+        System.out.println("DB 조회 - 닉네임: " + nickname + ", 전화번호 끝 4자리: " + phoneNumber);
+        User user = userRepository.findByNicknameAndPhoneNumberEndingWith(nickname, phoneNumber);
+        if (user != null) {
+            System.out.println("유저 정보: " + user);
+        } else {
+            System.out.println("해당 사용자 없음");
+        }
+        return user;
+    }
+
+
+
     // 유저를 저장하는 메서드
     public User saveUser(User user) {
         return userRepository.save(user);  // 유저 저장

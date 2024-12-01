@@ -1,5 +1,7 @@
 package com.example.demo.user;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,15 +12,22 @@ import org.springframework.stereotype.Service;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository; // MongoDB에서 사용자 정보를 가져올 리포지토리
+    private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String nickname) throws UsernameNotFoundException {
-        // nickname으로 User를 찾아옵니다.
-        User user = userRepository.findByNickname(nickname);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        String[] parts = username.split(":");  // 예: "nickname:1234"
+        String nickname = parts[0];  // 닉네임
+        String phoneNumberLast4 = parts[1];  // 전화번호 끝 4자리
+
+        User user = userRepository.findByNicknameAndPhoneNumberEndingWith(nickname, phoneNumberLast4);
+        
         if (user == null) {
-            throw new UsernameNotFoundException("User not found with nickname: " + nickname);
+            throw new UsernameNotFoundException("User not found with nickname and phone number last 4 digits: " + username);
         }
-        return user; // User 클래스는 UserDetails를 구현하므로 바로 반환
+        
+        return new org.springframework.security.core.userdetails.User(user.getNickname(), user.getPassword(), new ArrayList<>());
     }
+
 }
+

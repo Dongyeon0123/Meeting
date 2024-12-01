@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -28,5 +29,10 @@ public class UserController {
         User savedUser = userService.saveUser(user);  // UserService에서 유저 저장
         System.out.println("Saved user: " + savedUser);  // 콘솔에 저장된 사용자 출력
         return "redirect:/register/login";  // 회원가입 완료 후 로그인 페이지로 리디렉션
+    }
+    
+    @GetMapping("/users/{nickname}/{phoneNumber}")
+    public User getUserByNicknameAndPhoneNumber(@PathVariable String nickname, @PathVariable String phoneNumber) {
+        return userService.findUserByNicknameAndPhoneNumberEndingWith(nickname, phoneNumber);
     }
 }

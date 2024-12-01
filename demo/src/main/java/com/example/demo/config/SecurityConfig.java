@@ -17,7 +17,7 @@ public class SecurityConfig {
             .and()
             .formLogin()
                 .loginPage("/register/login")  // 커스터마이징된 로그인 페이지로 이동
-                .loginProcessingUrl("/register/login")  // 로그인 폼 처리 URL 설정
+                .loginProcessingUrl("/login")  // 로그인 폼 처리 URL 설정
                 .defaultSuccessUrl("/home", true)  // 로그인 성공 후 /home으로 리디렉트
                 .failureUrl("/register/login?error=true")  // 로그인 실패 시 /login?error=true로 리디렉트
                 .permitAll()
@@ -30,3 +30,4 @@ public class SecurityConfig {
         return http.build();
     }
 }
+
