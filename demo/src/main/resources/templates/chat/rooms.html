@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>채팅방 목록</title>
+</head>
+<body>
+    <h1>채팅방 목록</h1>
+
+	<form method="post" action="/chat/create">
+	    <input type="text" name="roomName" placeholder="채팅방 이름" required>
+	    <button type="submit">채팅방 생성</button>
+	</form>
+
+
+
+    <h2>채팅방 목록</h2>
+    <ul>
+        <li th:each="room : ${chatRooms}">
+            <a th:href="@{/chat/room/{id}(id=${room.id})}" th:text="${room.roomName}">채팅방 이름</a>
+            <span th:text="'(생성자: ' + ${room.createdBy} + ')'">생성자</span>
+        </li>
+    </ul>
+</body>
+</html>

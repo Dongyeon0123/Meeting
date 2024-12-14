@@ -7,19 +7,20 @@
 </head>
 <body>
     <h1>로그인</h1>
-	<form action="/register/login" method="post">
-	    <div>
-	        <label for="nickname">닉네임:</label>
-	        <input type="text" id="nickname" name="nickname" required>
-	    </div>
-	    <div>
-	        <label for="phone_number_last4">전화번호 마지막 4자리:</label>
-	        <input type="text" id="phone_number_last4" name="phoneNumber" pattern="\d{4}" required>
-	    </div>
-	    <div>
-	        <button type="submit">로그인</button>
+	<form action="/register/login" method="POST">
+	    <label for="nickname">닉네임:</label>
+	    <input type="text" id="nickname" name="nickname" required>
+
+	    <label for="phoneNumber">전화번호:</label>
+	    <input type="text" id="phoneNumber" name="phoneNumber" required>
+
+	    <button type="submit">로그인</button>
+
+	    <div th:if="${error}">
+	        <p style="color: red;" th:text="${error}"></p>
 	    </div>
 	</form>
+
     <!-- 로그인 실패 시 오류 메시지 표시 -->
     <c:if test="${param.error != null}">
         <p style="color:red;">로그인 실패! 닉네임이나 전화번호를 확인하세요.</p>

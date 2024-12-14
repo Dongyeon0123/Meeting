@@ -8,6 +8,7 @@ public class HomeController {
 
     @GetMapping("/home")
     public String homePage() {
-        return "home";  // home.html 페이지로 반환
+        return "home"; // 홈 페이지 템플릿 이름
     }
 }
+

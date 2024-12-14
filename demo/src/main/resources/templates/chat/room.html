@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>채팅방</title>
+</head>
+<body>
+    <h1 th:text="${roomName}">채팅방</h1>
+
+    <div id="messages">
+        <ul>
+            <li th:each="message : ${messages}">
+                <strong th:text="${message.senderNickname}">보낸사람</strong>: 
+                <span th:text="${message.messageContent}">메시지 내용</span>
+            </li>
+        </ul>
+    </div>
+
+    <form action="#" th:action="@{/chat/send/{chatRoomId}(chatRoomId=${roomId})}" method="post">
+        <label for="senderNickname">닉네임:</label>
+        <input type="text" id="senderNickname" name="senderNickname" required>
+        <label for="messageContent">메시지:</label>
+        <textarea id="messageContent" name="messageContent" required></textarea>
+        <button type="submit">메시지 보내기</button>
+    </form>
+
+    <a href="/chat/rooms">채팅방 목록으로 돌아가기</a>
+</body>
+</html>

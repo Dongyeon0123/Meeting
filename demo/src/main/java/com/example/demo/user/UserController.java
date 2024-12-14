@@ -31,8 +31,9 @@ public class UserController {
         return "redirect:/register/login";  // 회원가입 완료 후 로그인 페이지로 리디렉션
     }
     
+    // 닉네임과 전화번호로 유저를 찾는 메서드
     @GetMapping("/users/{nickname}/{phoneNumber}")
     public User getUserByNicknameAndPhoneNumber(@PathVariable String nickname, @PathVariable String phoneNumber) {
-        return userService.findUserByNicknameAndPhoneNumberEndingWith(nickname, phoneNumber);
+        return userService.findUserByNicknameAndPhoneNumber(nickname, phoneNumber);
     }
 }

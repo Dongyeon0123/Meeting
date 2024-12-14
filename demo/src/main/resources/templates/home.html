@@ -4,10 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>홈</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        h1 {
+            color: #4CAF50;
+            margin-top: 50px;
+        }
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+        .button-container {
+            margin-top: 30px;
+        }
+        .btn {
+            padding: 15px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .btn-logout {
+            background-color: #f44336;
+        }
+        .btn-logout:hover {
+            background-color: #e53935;
+        }
+    </style>
 </head>
 <body>
     <h1>홈페이지에 오신 것을 환영합니다!</h1>
     <p>로그인 성공했습니다.</p>
-    <a href="/logout">로그아웃</a>
+    
+    <div class="button-container">
+        <a href="/chat/rooms" class="btn">채팅방 목록으로 가기</a>
+        <a href="/logout" class="btn btn-logout">로그아웃</a>
+    </div>
 </body>
 </html>
